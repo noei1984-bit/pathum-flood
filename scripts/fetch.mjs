@@ -3,7 +3,7 @@
 // กฎ: ไม่เดาตัวเลข — ดึงไม่ได้ก็ไม่ใส่ · ค่าเก่ากว่า 6 ชม. ไม่แสดง · ถนนที่ cleared/เก่ากว่า 12 ชม. ไม่ใส่
 import fs from 'node:fs';
 
-const UA = { 'user-agent': 'pathum-flood-dashboard (GitHub Actions; non-commercial public info)' };
+const UA = { 'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36 pathum-flood-dashboard', 'accept': 'application/json', 'cache-control': 'no-cache', 'pragma': 'no-cache' };
 const NOW = Date.now();
 const MAX_AGE_ST = 6 * 3600e3, MAX_AGE_RD = 12 * 3600e3;
 const TH_M = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
@@ -18,13 +18,14 @@ const log = [];
 async function J(url, opt = {}) {
   for (let i = 0; i < 3; i++) {
     try {
-      const r = await fetch(url, { ...opt, headers: { ...UA, ...(opt.headers || {}) }, signal: AbortSignal.timeout(30000) });
+      const u2 = url + (url.includes('?') ? '&' : '?') + '_=' + NOW;
+      const r = await fetch(u2, { ...opt, headers: { ...UA, ...(opt.headers || {}) }, signal: AbortSignal.timeout(30000) });
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return await r.json();
     } catch (e) { if (i == 2) { log.push(`FAIL ${url}: ${e.message}`); return null; } await new Promise(r => setTimeout(r, 4000)); }
   }
 }
-const arrOf = x => !x ? [] : Array.isArray(x) ? x : (x.data || x.stations || x.items || Object.values(x).find(Array.isArray) || []);
+const arrOf = x => { for (let i = 0; i < 4 && x && !Array.isArray(x); i++) x = x.data || x.stations || x.items || Object.values(x).find(v => v && typeof v == 'object'); return Array.isArray(x) ? x : []; };
 
 // ---- สถานี (ชื่อ/พิกัด/ตลิ่ง คงที่) ----
 const TW = { // สสน. ThaiWater: code -> [name, lat, lon, bank]
