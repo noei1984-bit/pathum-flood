@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>พยากรณ์ฝน ชมฟ้าวรางกูล</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4F7FA;--card:#fff;--ink:#14262D;--ink2:#5B6B78;--line:#E2E8EE;--b0:#EEF2F5;--b1:#DDEFFB;--b2:#B9DCF6;--b3:#7FB6EA;--acc:#2D6BE0;--warn:#C2410C}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0F171C;--card:#17232A;--ink:#E8EEF2;--ink2:#9AAAB5;--line:#26343C;--b0:#1C2930;--b1:#1B3346;--b2:#1F4766;--b3:#2A5F8F;--acc:#7FB0FF;--warn:#FB923C}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Thai",system-ui,sans-serif;line-height:1.5}
+.wrap{max-width:760px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:1.45rem;margin:0 0 4px}.sub{color:var(--ink2);font-size:.92rem;margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:14px}
+.sum{font-size:1.02rem}.sum b{color:var(--acc)}
+.legend{display:flex;flex-wrap:wrap;gap:8px;font-size:.85rem}.legend span{padding:4px 10px;border-radius:999px;border:1px solid var(--line)}
+.l0{background:var(--b0)}.l1{background:var(--b1)}.l2{background:var(--b2)}.l3{background:var(--b3)}
+table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{padding:8px 6px;text-align:left;border-bottom:1px solid var(--line)}
+th{font-size:.8rem;color:var(--ink2);font-weight:600}td.e{font-size:1.4rem;width:58px;text-align:center;white-space:nowrap}
+td.t{font-weight:700;white-space:nowrap}.num{text-align:right;white-space:nowrap}
+.bar{height:8px;border-radius:4px;background:var(--acc);opacity:.75}
+tr.peak td{font-weight:700}.note{font-size:.88rem;color:var(--ink2)}.note li{margin-bottom:4px}
+.warn{color:var(--warn);font-weight:600}a{color:var(--acc)}
+@media (max-width:520px){.hide-s{display:none}table{font-size:.9rem}}
+</style></head><body><div class="wrap">
+<p style="margin:0 0 10px"><a href="./">← กลับหน้าแดชบอร์ดน้ำท่วมปทุมธานี</a></p>
+<h1>🌦️ พยากรณ์ฝนรายชั่วโมง วันนี้</h1>
+<p class="sub">หมู่บ้านชมฟ้าวรางกูล คลอง 2 · ซ.รังสิต-นครนายก 64 ต.ประชาธิปัตย์ อ.ธัญบุรี · <span id="day">เสาร์ 3 ต.ค. 2569</span> · 00:00–23:00 น.</p>
+
+<div class="card sum" id="sum"></div>
+
+<div class="card"><div style="font-weight:600;margin-bottom:8px">ระดับฝน</div><div class="legend">
+<span class="l0">☁️ ไม่มีฝน (0 มม.)</span><span class="l1">🌦️ ฝนเล็กน้อย/ปรอย (&lt;0.5)</span><span class="l2">🌧️ ฝนปานกลาง (0.5–2)</span><span class="l3">⛈️ ฝนหนัก (&gt;2 มม./ชม.)</span><span>⚡ = มีฟ้าคะนอง</span></div></div>
+
+<div class="card" style="padding:6px 10px"><table><thead><tr><th></th><th>เวลา</th><th>อากาศ</th><th class="num">อุณหภูมิ (รู้สึก)</th><th class="num">โอกาสฝน</th><th class="hide-s" style="width:22%"></th><th class="num">ฝน มม.</th></tr></thead><tbody id="rows"></tbody></table></div>
+
+<div class="card note"><div style="font-weight:600;color:var(--ink);margin-bottom:6px">หมายเหตุ</div><ul style="margin:0;padding-left:18px">
+<li>ภาพรวมทางการของวันนี้ ดูที่ <a href="https://www.tmd.go.th/forecast/daily" target="_blank" rel="noopener">พยากรณ์อากาศประจำวัน กรมอุตุนิยมวิทยา</a> (หัวข้อกรุงเทพและปริมณฑล)</li>
+<li>ตารางรายชั่วโมงเป็นค่าจากแบบจำลอง <b>Open-Meteo</b> ที่พิกัด 13.9927, 100.6602 <b>ไม่ใช่ค่าทางการ</b> ถ้าตัวเลขต่างจากกรมอุตุฯ ให้ยึดกรมอุตุฯ เป็นหลัก</li>
+<li>ฝนฟ้าคะนองตกเป็นจุด ๆ เวลาจริงอาจคลาดได้ 1–2 ชม. ก่อนออกจากบ้านช่วงบ่าย ดูเรดาร์ล่วงหน้า 3 ชม. ที่ <a href="https://dds.bangkok.go.th/nowcast/" target="_blank" rel="noopener">Bangkok AI Nowcast</a></li>
+<li class="warn">ช่วงน้ำท่วม: ฝนหนักอาจทำให้น้ำในซอยระบายช้า ดูระดับคลองล่าสุดที่<a href="./">หน้าแดชบอร์ด</a></li>
+<li>อัปเดตอัตโนมัติทุกวันเวลา 00:05 น. (GitHub Actions) · ดึงล่าสุด <span id="gen">3/10/2569 06:30</span> น. · ที่มา: <a href="https://www.tmd.go.th/forecast/daily" target="_blank" rel="noopener">กรมอุตุนิยมวิทยา</a> · <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a></li>
+</ul></div>
+</div>
+<script>
+var D0=[["00:00",26.8,32.7,17,0,3],["01:00",26.7,32.8,12,0,3],["02:00",26.5,32.5,10,0,3],["03:00",26.2,32.3,10,0,3],["04:00",26.1,32.1,10,0,3],["05:00",26.1,32,8,0,3],["06:00",26,31.9,5,0,3],["07:00",26.7,32.7,4,0,3],["08:00",28.4,34.9,4,0,3],["09:00",30,36.3,6,0,3],["10:00",30.7,37.2,14,0.2,95],["11:00",31.1,37.9,35,0.3,95],["12:00",31.6,39,63,0.3,95],["13:00",31.4,38.5,84,0.3,95],["14:00",29,36.1,93,4.3,96],["15:00",29,35.6,94,0.7,95],["16:00",29,35.1,90,0.9,95],["17:00",27.8,34.2,79,0.5,53],["18:00",27.4,34.7,63,0.2,51],["19:00",26.7,33.6,47,0,3],["20:00",26.4,33.2,34,0,3],["21:00",26,32.2,21,0.6,95],["22:00",26,32.5,12,0,3],["23:00",25.9,32.6,7,0,3]];
+var TM=["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."],WD=["อาทิตย์","จันทร์","อังคาร","พุธ","พฤหัสบดี","ศุกร์","เสาร์"];
+function lv(r){return r>2?3:r>=0.5?2:r>0?1:0}
+var EM=["☁️","🌦️","🌧️","⛈️"],TX=["เมฆมาก ไม่มีฝน","ฝนเล็กน้อย","ฝนปานกลาง","ฝนหนัก"];
+function render(D,date,gen){
+  if(date){var p=date.split("-"),dt=new Date(+p[0],p[1]-1,+p[2]);document.getElementById("day").textContent=WD[dt.getDay()]+" "+(+p[2])+" "+TM[p[1]-1]+" "+(+p[0]+543);}
+  if(gen)document.getElementById("gen").textContent=gen;
+  var h="",tot=0,first=null,peak=null,last=null;
+  D.forEach(function(d){var r=d[4]||0,l=lv(r),th=d[5]>=95,hr=+d[0].slice(0,2);tot+=r;if(r>0){if(first==null)first=d[0];last=d[0];}if(peak==null||r>peak[1])peak=[d[0],r];
+    var e=(l==0&&(hr>=19||hr<6)?"🌙":EM[l])+(th&&l<3?"⚡":"");
+    h+='<tr class="l'+l+(l==3?' peak':'')+'"><td class="e">'+e+'</td><td class="t">'+d[0]+'</td><td>'+TX[l]+(th?" มีฟ้าคะนอง":"")+'</td><td class="num">'+Math.round(d[1])+'° ('+Math.round(d[2])+'°)</td><td class="num">'+(d[3]==null?"–":d[3]+"%")+'</td><td class="hide-s"><div class="bar" style="width:'+(d[3]||0)+'%"></div></td><td class="num">'+r.toFixed(1)+'</td></tr>';});
+  document.getElementById("rows").innerHTML=h;
+  document.getElementById("sum").innerHTML=tot<0.1?"<b>ไม่มีฝน</b>ทั้งวันตามแบบจำลอง":"มีฝนช่วง <b>"+first+"–"+last+"</b> · <b>หนักสุดราว "+peak[0]+"</b> ("+peak[1].toFixed(1)+" มม.) · ฝนรวมทั้งวันราว "+Math.round(tot)+" มม.";
+}
+render(D0,"2026-10-03",null);
+fetch("data/weather.json?ts="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).then(function(w){if(w&&w.hours&&w.hours.length)render(w.hours,w.date,w.generatedTH)}).catch(function(){});
+</script>
+</body></html>
