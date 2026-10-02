@@ -18,7 +18,7 @@ const log = [];
 async function J(url, opt = {}) {
   for (let i = 0; i < 3; i++) {
     try {
-      const u2 = url + (url.includes('?') ? '&' : '?') + '_=' + NOW;
+      const u2 = i == 1 ? url : url + (url.includes('?') ? '&' : '?') + '_=' + NOW; // รอบ 2 ลองแบบไม่มีพารามิเตอร์กันแคช
       const r = await fetch(u2, { ...opt, headers: { ...UA, ...(opt.headers || {}) }, signal: AbortSignal.timeout(30000) });
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return await r.json();
@@ -61,7 +61,9 @@ for (const x of arrOf(await J('https://faonam.com/api/dwr/stations'))) if (x.cod
     `ระดับ ${f2(x.level)} ม.รทก.${cap != null ? ` · ความจุลำน้ำ ${cap}% (100% = ถึงตลิ่ง)` : ''}${x.flow ? ` · น้ำไหลผ่าน ${Math.round(x.flow).toLocaleString('en-US')} ลบ.ม./วิ.` : ''}`, '', 'กรมทรัพยากรน้ำ'], x.at, x.level);
 }
 // 3) โทรมาตร TC.55
-for (const x of arrOf(await J('https://faonam.com/api/local/stations'))) if (/TC\.55/.test(x.name || '') && x.level != null) {
+const locs = arrOf(await J('https://faonam.com/api/local/stations'));
+if (locs.length && !locs.some(x => /TC\.55/.test(x.name || ''))) log.push('TC.55 ไม่อยู่ในรายการ local/stations รอบนี้');
+for (const x of locs) if (/TC\.55/.test(x.name || '') && x.level != null) {
   const s = x.level >= x.critical ? ['วิกฤต', 'r'] : x.level >= x.warning ? ['เฝ้าระวัง', 'b'] : ['ปกติ', 'g'];
   push(['TC.55', 'เจ้าพระยา · อ.เมืองปทุมฯ (โทรมาตร)', x.latitude, x.longitude, f2(x.level), s[0], s[1], `ระดับ ${f2(x.level)} ม.รทก. · เฝ้าระวังที่ ${f2(x.warning)} · วิกฤตที่ ${f2(x.critical)}`, '', 'กรมชลประทาน (โทรมาตร)'], x.at, x.level);
 }
@@ -102,9 +104,17 @@ const gatesBMA = {};
 const fl = await J('https://weather.bangkok.go.th/flow/PageMap/GetData', { method: 'POST' });
 for (const x of arrOf(fl && (fl.dtTableWl || fl))) if ([10, 11, 13].includes(+x.flow_id)) gatesBMA[x.flow_shortname || x.flow_id] = { flow: x.flow, at: x.site_timestampTH };
 
+// ถ้าแหล่งไหนดึงไม่ได้รอบนี้ ใช้ค่าจากรอบก่อนต่อ เฉพาะที่ยังไม่เก่าเกิน 6 ชม. (ไม่เดาค่าใหม่)
+try {
+  const prev = JSON.parse(fs.readFileSync('data/latest.json', 'utf8'));
+  const have = new Set(st.map(s => s[0]));
+  for (const s of prev.stations || []) if (!have.has(s[0]) && s[10] && NOW - s[10] <= MAX_AGE_ST) { st.push(s); log.push(`ใช้ค่ารอบก่อน ${s[0]} (${s[8]})`); }
+  if (!fb && prev.roads && NOW - prev.generatedAt <= MAX_AGE_RD) { roads.push(...prev.roads); log.push('ถนน: ใช้ข้อมูลรอบก่อน'); }
+} catch { }
+
 // ---- เขียนไฟล์ ----
 fs.mkdirSync('data/history', { recursive: true });
-const latest = { generatedAt: NOW, generatedTH: thFull(NOW), stations: st, roads: fb ? roads : null, roadsCleared: cleared, gatesBMA, log };
+const latest = { generatedAt: NOW, generatedTH: thFull(NOW), stations: st, roads: (fb || roads.length) ? roads : null, roadsCleared: cleared, gatesBMA, log };
 fs.writeFileSync('data/latest.json', JSON.stringify(latest));
 // ประวัติรายเดือน (กันซ้ำด้วย code+เวลา)
 const byMonth = {};
