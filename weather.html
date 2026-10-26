@@ -7,27 +7,28 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0F171C;--card:#17232A;--ink:#E8EEF2;--ink2:#9AAAB5;--line:#26343C;--b0:#1C2930;--b1:#1B3346;--b2:#1F4766;--b3:#2A5F8F;--acc:#7FB0FF;--warn:#FB923C}}
 :root[data-theme=dark]{--bg:#0F171C;--card:#17232A;--ink:#E8EEF2;--ink2:#9AAAB5;--line:#26343C;--b0:#1C2930;--b1:#1B3346;--b2:#1F4766;--b3:#2A5F8F;--acc:#7FB0FF;--warn:#FB923C}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Thai",system-ui,sans-serif;line-height:1.45}
-.wrap{max-width:1280px;margin:0 auto;padding:18px 14px 36px}
+.wrap{max-width:1280px;margin:0 auto;padding:20px 20px 40px}
 h1{font-size:1.4rem;margin:0 0 4px}.sub{color:var(--ink2);font-size:.9rem;margin:0 0 14px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:12px}
 .cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start}
 .col h2{font-size:1.05rem;margin:0 0 2px}.col .dt{color:var(--ink2);font-size:.82rem;margin-bottom:8px}
 .sum{font-size:.92rem;margin-bottom:8px}.sum b{color:var(--acc)}
 .legend{display:flex;flex-wrap:wrap;gap:6px;font-size:.8rem}.legend span{padding:3px 9px;border-radius:999px;border:1px solid var(--line)}
-.l0{background:var(--b0)}.l1{background:var(--b1)}.l2{background:var(--b2)}.l3{background:var(--b3)}
+.legend .l0{background:var(--b0)}.legend .l1{background:var(--b1)}.legend .l2{background:var(--b2)}.legend .l3{background:var(--acc);color:var(--bg);border-color:var(--acc)}
 table{width:100%;border-collapse:collapse;font-size:.82rem}th,td{padding:4px 3px;text-align:left;border-bottom:1px solid var(--line)}
-th{font-size:.72rem;color:var(--ink2);font-weight:600}td.e{font-size:1.1rem;width:30px;text-align:center}
+th{font-size:.72rem;color:var(--ink2);font-weight:600}td.e{width:22px}.lv{display:block;width:6px;height:18px;border-radius:3px;background:var(--b0)}tr.l1 .lv{background:var(--b1)}tr.l2 .lv{background:var(--b2)}tr.l3 .lv{background:var(--acc)}
+body{font-variant-numeric:tabular-nums}h1{letter-spacing:-.01em}
 td.t{font-weight:700;white-space:nowrap}.num{text-align:right;white-space:nowrap}
 .bar{height:6px;border-radius:3px;background:var(--acc);opacity:.75}
 tr.peak td{font-weight:700}.note{font-size:.86rem;color:var(--ink2)}.note li{margin-bottom:4px}
 .warn{color:var(--warn);font-weight:600}a{color:var(--acc)}
-.tx{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:7.5em}
+.tx{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:10em}
 @media (max-width:900px){.cols{grid-template-columns:1fr}.tx{max-width:none}table{font-size:.9rem}}
 </style></head><body><div class="wrap">
 <p style="margin:0 0 8px"><a href="https://noei1984-bit.github.io/pathum-flood/">← หน้าแดชบอร์ดน้ำท่วมปทุมธานี</a></p>
-<h1>🌦️ พยากรณ์ฝนรายชั่วโมง 3 วัน (21–23 ต.ค. 2569)</h1>
+<h1>พยากรณ์ฝนรายชั่วโมง 3 วัน (21–23 ต.ค. 2569)</h1>
 <p class="sub">หมู่บ้านชมฟ้าวรางกูล คลอง 2 · ซ.รังสิต-นครนายก 64 ต.ประชาธิปัตย์ อ.ธัญบุรี · 00:00–23:00 น. · ดึงข้อมูล <span id="gen">20/10/2569 ~09:30</span> น.</p>
-<div class="card"><div class="legend"><span class="l0">☁️ ไม่มีฝน (0 มม.)</span><span class="l1">🌦️ เล็กน้อย/ปรอย (&lt;0.5)</span><span class="l2">🌧️ ปานกลาง (0.5–2)</span><span class="l3">⛈️ หนัก (&gt;2 มม./ชม.)</span><span>⚡ = ฟ้าคะนอง</span></div></div>
+<div class="card"><div class="legend"><span class="l0">ไม่มีฝน (0 มม.)</span><span class="l1">เล็กน้อย/ปรอย (&lt;0.5)</span><span class="l2">ปานกลาง (0.5–2)</span><span class="l3">หนัก (&gt;2 มม./ชม.)</span></div></div>
 <div class="cols" id="cols"></div>
 <div class="card note" style="margin-top:12px"><div style="font-weight:600;color:var(--ink);margin-bottom:6px">หมายเหตุ</div><ul style="margin:0;padding-left:18px">
 <li><b>กรมอุตุนิยมวิทยา</b> ประกาศเตือนฝนตกหนักถึงหนักมาก <b>ฉบับที่ 7 (266/2569) ข้อมูลวันที่ 20 ต.ค. 2569</b> มีผลกระทบถึง 25 ต.ค.: 20 ต.ค. ภาคใต้และภาคตะวันออกฝนตกหนักถึงหนักมากบางพื้นที่ · <b>21–25 ต.ค. ภาคกลาง รวมทั้ง กทม.และปริมณฑล</b> ภาคตะวันออกเฉียงเหนือตอนล่าง ภาคตะวันออก และภาคใต้ตอนบน ฝนเพิ่มขึ้นและตกหนักถึงหนักมากบางพื้นที่ กับมีลมกระโชกแรงบางแห่ง · ตรวจประกาศล่าสุดที่ <a href="https://www.tmd.go.th/warning-and-events/warning-storm" target="_blank" rel="noopener">tmd.go.th</a></li>
@@ -39,14 +40,13 @@ tr.peak td{font-weight:700}.note{font-size:.86rem;color:var(--ink2)}.note li{mar
 var DAYS=[{date:"2026-10-21",D:[["00:00",25.1,31.2,17,0,1],["01:00",24.8,30.7,25,0,1],["02:00",24.6,30.2,31,0,0],["03:00",24.4,30.4,37,0,1],["04:00",24.4,30,39,0,1],["05:00",24.4,30,32,0,1],["06:00",24.3,30,21,0,1],["07:00",24.7,30.4,12,0,1],["08:00",26.1,31.9,8,0,3],["09:00",27.4,33,7,0.1,51],["10:00",28.7,34.2,10,0.1,51],["11:00",29.8,35.4,22,0.1,51],["12:00",30.8,37.5,38,0.2,51],["13:00",31.4,38.7,51,0.1,51],["14:00",31.7,39.3,56,0.1,51],["15:00",31.4,38.4,58,0,0],["16:00",30,34.9,57,0.2,51],["17:00",28.3,33.7,54,0.4,51],["18:00",27.5,34.1,49,0,1],["19:00",26.8,33.3,43,0,1],["20:00",26.4,32.8,36,0,1],["21:00",26.3,32.5,29,0,1],["22:00",26.3,32.6,25,0,1],["23:00",25.9,31.7,26,0,2]]},{date:"2026-10-22",D:[["00:00",24.6,29.9,30,2.9,81],["01:00",24.3,29.3,31,0.2,51],["02:00",24.2,29.2,28,0.1,51],["03:00",24.3,29.9,23,0,1],["04:00",24.3,29.9,18,0,0],["05:00",24.3,29.8,13,0,0],["06:00",24.2,29.5,8,0,0],["07:00",24.6,29.6,4,0,0],["08:00",26,30.8,2,0,2],["09:00",27.9,33,3,0,2],["10:00",29.4,34.5,6,0.1,51],["11:00",30.3,36.8,14,0.4,51],["12:00",31.2,38.9,25,0.1,51],["13:00",31.7,39.7,35,0,0],["14:00",31.6,39.2,46,0,0],["15:00",28.2,33,56,0.5,95],["16:00",27.7,33.8,61,1.1,55],["17:00",27.9,34.9,55,0.1,51],["18:00",27.3,34.4,44,0,0],["19:00",26.9,34,33,0,1],["20:00",26.5,33.4,24,0,1],["21:00",26.4,33.4,16,0,1],["22:00",26.3,33.2,10,0,0],["23:00",26.3,33.3,8,0,0]]},{date:"2026-10-23",D:[["00:00",26,32.9,8,0,0],["01:00",25.8,32.7,8,0,0],["02:00",25.5,32.2,8,0,0],["03:00",25.4,31.8,9,0,45],["04:00",25.3,31.3,10,0,45],["05:00",25.2,31,11,0,45],["06:00",25.1,31.2,12,0,3],["07:00",25.6,31.5,12,0,2],["08:00",27.1,33.2,9,0.1,51],["09:00",28.1,34.9,6,0.1,51],["10:00",29.4,36.5,8,0.1,51],["11:00",30.6,39,21,0.1,51],["12:00",31.6,40.8,39,0.1,51],["13:00",31.8,40.7,53,0.2,51],["14:00",31.8,40,57,0.2,51],["15:00",31.8,39.1,56,0.1,51],["16:00",31.4,38.3,55,0,2],["17:00",30.7,38,58,0.7,95],["18:00",27.8,34.1,61,1.1,95],["19:00",27.2,33.6,59,0,3],["20:00",26.6,33,47,0,2],["21:00",26.4,32.8,31,0,1],["22:00",26.2,32.6,20,0,0],["23:00",25.9,32.3,20,0,0]]}];
 var TM=["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."],WD=["อาทิตย์","จันทร์","อังคาร","พุธ","พฤหัสบดี","ศุกร์","เสาร์"],REL=["พรุ่งนี้","มะรืนนี้","อีก 3 วัน"];
 function lv(r){return r>2?3:r>=0.5?2:r>0?1:0}
-var EM=["☁️","🌦️","🌧️","⛈️"],TX=["ไม่มีฝน","เล็กน้อย","ปานกลาง","หนัก"];
+var TX=["ไม่มีฝน","เล็กน้อย","ปานกลาง","หนัก"];
 var out="";
 DAYS.forEach(function(day,di){var p=day.date.split("-"),dt=new Date(+p[0],p[1]-1,+p[2]);
   var h="",tot=0,first=null,peak=null,last=null,pmax=0,tmin=99,tmax=-99;
   day.D.forEach(function(d){var r=d[4]||0,l=lv(r),th=d[5]>=95,hr=+d[0].slice(0,2);tot+=r;pmax=Math.max(pmax,d[3]||0);tmin=Math.min(tmin,d[1]);tmax=Math.max(tmax,d[1]);
     if(r>0.1){if(first==null)first=d[0];last=d[0];}if(peak==null||r>peak[1])peak=[d[0],r];
-    var e=(l==0&&(hr>=19||hr<6)?"🌙":EM[l])+(th&&l<3?"⚡":"");
-    h+='<tr class="l'+l+(l==3?' peak':'')+'"><td class="e">'+e+'</td><td class="t">'+d[0]+'</td><td class="tx">'+TX[l]+(th?" ⚡":"")+'</td><td class="num">'+Math.round(d[1])+'°</td><td class="num">'+(d[3]==null?"–":d[3]+"%")+'</td><td class="num">'+r.toFixed(1)+'</td></tr>';});
+    h+='<tr class="l'+l+(l==3?' peak':'')+'"><td class="e"><i class="lv"></i></td><td class="t">'+d[0]+'</td><td class="tx">'+TX[l]+(th?" · ฟ้าคะนอง":"")+'</td><td class="num">'+Math.round(d[1])+'°</td><td class="num">'+(d[3]==null?"–":d[3]+"%")+'</td><td class="num">'+r.toFixed(1)+'</td></tr>';});
   var sum=tot<0.5?"<b>แทบไม่มีฝน</b> ("+tot.toFixed(1)+" มม.)":"ฝนรวม <b>~"+Math.round(tot)+" มม.</b> · หนักสุด <b>"+peak[0]+"</b> ("+peak[1].toFixed(1)+" มม./ชม.) · โอกาสสูงสุด "+pmax+"%";
   out+='<div class="card col"><h2>'+REL[di]+' · '+WD[dt.getDay()]+' '+(+p[2])+' '+TM[p[1]-1]+'</h2><div class="dt">อุณหภูมิ '+Math.round(tmin)+'–'+Math.round(tmax)+' °C</div><div class="sum">'+sum+'</div><table><thead><tr><th></th><th>เวลา</th><th>อากาศ</th><th class="num">°C</th><th class="num">โอกาส</th><th class="num">มม.</th></tr></thead><tbody>'+h+'</tbody></table></div>';});
 document.getElementById("cols").innerHTML=out;
